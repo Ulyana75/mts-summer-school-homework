@@ -160,7 +160,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/app_margin_normal"
                 android:paddingBottom="46dp"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:layout_marginEnd="@dimen/app_margin_small">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
