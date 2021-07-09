@@ -152,8 +152,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="@dimen/app_margin_normal"
                 android:paddingBottom="46dp"
-                android:scrollbars="none"
-                android:layout_marginEnd="@dimen/app_margin_small">
+                android:scrollbars="none">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -197,7 +196,9 @@
                         android:src="@drawable/img_actor_harnett"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/mackellany_photo"
-                        android:layout_marginStart="10dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="@dimen/app_margin_small"/>
 
                     <TextView
                         android:id="@+id/actor_name3"
