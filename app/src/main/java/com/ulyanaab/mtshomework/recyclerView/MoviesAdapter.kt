@@ -2,6 +2,7 @@ package com.ulyanaab.mtshomework.recyclerView
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +10,33 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.ulyanaab.mtshomework.MAX_TITLE_LENGTH
 import com.ulyanaab.mtshomework.R
+import com.ulyanaab.mtshomework.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.dto.MovieDto
 
-class MoviesAdapter(private val dataList: List<MovieDto>) :
-    RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
+class MoviesAdapter(
+    private val dataList: List<MovieDto>,
+    private val listener: (item: MovieDto) -> Unit,
+    context: Context
+) : RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
+
+    private val imgMetrics = calculateImageSizeInPX(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        val holder = MoviesHolder(view)
+
+        // to make images as big as possible with fixed offsets
+        if (imgMetrics != null) {
+            val layoutParams = holder.poster.layoutParams
+            layoutParams.width = imgMetrics.first
+            layoutParams.height = imgMetrics.second
+            holder.poster.layoutParams = layoutParams
+        }
+
+        // to round corners of poster
+        holder.poster.clipToOutline = true
+
         return MoviesHolder(view)
     }
 
@@ -25,13 +44,7 @@ class MoviesAdapter(private val dataList: List<MovieDto>) :
     override fun onBindViewHolder(holder: MoviesHolder, position: Int) {
         val item = dataList[position]
         holder.poster.load(item.imageUrl)
-        // to round corners of poster
-        holder.poster.clipToOutline = true
-        holder.title.text =
-            if (item.title.length <= MAX_TITLE_LENGTH) item.title else item.title.substring(
-                0,
-                MAX_TITLE_LENGTH + 1
-            )
+        holder.title.text = item.title
         holder.description.text = item.description
         holder.ageRestriction.text = "${item.ageRestriction}+"
 
@@ -40,6 +53,10 @@ class MoviesAdapter(private val dataList: List<MovieDto>) :
         }
         for (i in 4 downTo item.rateScore) {
             holder.rating[i].setImageDrawable(holder.itemView.context.getDrawable(R.drawable.ic_empty_star))
+        }
+
+        holder.itemView.setOnClickListener {
+            listener(dataList[position])
         }
     }
 

@@ -29,7 +29,9 @@
         android:layout_marginStart="3dp"
         tools:text="Гнев человеческий"
         android:textSize="14sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
     <TextView
         android:id="@+id/film_description"
@@ -42,7 +44,9 @@
         app:layout_constraintStart_toStartOf="@+id/film_title"
         app:layout_constraintEnd_toEndOf="@+id/film_poster"
         android:layout_marginTop="10dp"
-        android:minLines="6"/>
+        android:minLines="6"
+        android:maxLines="6"
+        android:ellipsize="end"/>
 
     <ImageView
         android:id="@+id/star_first"
