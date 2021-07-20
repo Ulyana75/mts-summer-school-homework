@@ -17,10 +17,8 @@ import com.ulyanaab.mtshomework.dto.MovieDto
 class MoviesAdapter(
     private val dataList: List<MovieDto>,
     private val listener: (item: MovieDto) -> Unit,
-    context: Context
+    private val imgMetrics: Pair<Int, Int>?
 ) : RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
-
-    private val imgMetrics = calculateImageSizeInPX(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)

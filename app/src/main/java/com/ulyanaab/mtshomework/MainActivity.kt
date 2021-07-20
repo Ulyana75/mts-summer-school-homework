@@ -33,7 +33,11 @@ class MainActivity : AppCompatActivity() {
         recyclerViewGenres.adapter = adapter
 
         recyclerViewMovies = findViewById(R.id.recycler_view_movies)
-        val adapter2 = MoviesAdapter(moviesModel.getMovies(), this::adapterMovieListener, this)
+        val adapter2 = MoviesAdapter(
+            moviesModel.getMovies(),
+            this::adapterMovieListener,
+            calculateImageSizeInPX(this)
+        )
         recyclerViewMovies.adapter = adapter2
     }
 
@@ -51,7 +55,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showToast(message: String?) {
         when {
-            message.isNullOrEmpty() -> { showToast("Пустое сообщение") }
+            message.isNullOrEmpty() -> {
+                showToast("Пустое сообщение")
+            }
             else -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
