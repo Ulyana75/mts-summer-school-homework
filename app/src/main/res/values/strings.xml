@@ -10,4 +10,6 @@
     <string name="actor_name_mackellany">Холт Маккэллани</string>
     <string name="actor_name_harnett">Джош Харнетт</string>
     <string name="popular_now">Популярное сейчас</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
