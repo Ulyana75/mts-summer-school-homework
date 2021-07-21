@@ -24,11 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        initViews()
+    }
+
+    private fun initViews() {
         findViewById<View>(R.id.active_home).visibility = View.VISIBLE
         findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
         replaceFragment(this, MainFragment(), false)
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.home -> {
                     replaceFragment(this, MainFragment(), false)
                     findViewById<View>(R.id.active_home).visibility = View.VISIBLE
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    replaceFragment(this, ProfileFragment(), true)
+                    replaceFragment(this, ProfileFragment(), false)
                     findViewById<View>(R.id.active_home).visibility = View.INVISIBLE
                     findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
                     true

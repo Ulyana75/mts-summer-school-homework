@@ -13,7 +13,8 @@ fun calculateImageSizeInPX(context: Context): Pair<Int, Int>? {
     val dpi = context.resources.displayMetrics.densityDpi
     val widthDp = convertToDP(context.resources.displayMetrics.widthPixels, dpi)
     val imgWidth = (widthDp - 60) / 2   // 60 - it's three offsets by 20dp, 2 - two columns
-    val imgHeightInPx = convertToPX((imgWidth * 36 / 25.0).toInt(), dpi)   // width : height = 150 : 216 = 25 : 36
+    val imgHeightInPx =
+        convertToPX((imgWidth * 36 / 25.0).toInt(), dpi)   // width : height = 150 : 216 = 25 : 36
     if (imgHeightInPx * 3 > context.resources.displayMetrics.heightPixels) {   // if image becomes very huge - not resize it
         return null
     }
@@ -32,7 +33,7 @@ fun convertToPX(value: Int, dpi: Int): Int {
 }
 
 fun replaceFragment(activity: FragmentActivity, fragment: Fragment, addToBackStack: Boolean) {
-    if(addToBackStack) {
+    if (addToBackStack) {
         activity.supportFragmentManager.beginTransaction()
             .replace(R.id.data_container, fragment)
             .addToBackStack(null)

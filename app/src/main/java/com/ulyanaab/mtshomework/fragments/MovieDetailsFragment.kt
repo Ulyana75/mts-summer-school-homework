@@ -2,16 +2,14 @@ package com.ulyanaab.mtshomework.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.RecoverySystem
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.dto.ActorDto
 import com.ulyanaab.mtshomework.dto.MovieDto
@@ -26,6 +24,9 @@ class MovieDetailsFragment : Fragment() {
     private lateinit var recyclerViewActors: RecyclerView
 
     companion object {
+
+        private val KEY_TO_SEND_MOVIEDTO = "movie"
+
         fun newInstance(message: MovieDto): Fragment {
             val args = Bundle()
             args.putSerializable(KEY_TO_SEND_MOVIEDTO, message)
