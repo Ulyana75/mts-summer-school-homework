@@ -5,17 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
+import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
 
 
 class ProfileFragment : Fragment() {
+
+    private lateinit var recyclerViewInterests: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initViews()
+    }
+
+    private fun initViews() {
+        recyclerViewInterests = requireView().findViewById(R.id.recycler_view_interests)
+        val adapter = GenreAdapter(getGenres(), this::adapterGenreListener)
+        recyclerViewInterests.adapter = adapter
+    }
+
+    private fun getGenres(): MutableList<String> {
+        return mutableListOf("боевики", "драмы", "комедии")
+    }
+
+    private fun adapterGenreListener(item: String) {
+        // do nothing
     }
 
 }

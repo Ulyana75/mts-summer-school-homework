@@ -40,7 +40,6 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         movieObj = arguments?.getSerializable(KEY_TO_SEND_MOVIEDTO) as MovieDto?
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movie_details, container, false)
     }
 

@@ -60,5 +60,3 @@ fun setRating(rating: Int, view: View) {
         starList[i].setImageDrawable(context.getDrawable(R.drawable.ic_empty_star))
     }
 }
-
-//TODO сделать актеров через ресайклер
