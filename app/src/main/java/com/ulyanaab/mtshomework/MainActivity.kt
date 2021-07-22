@@ -2,20 +2,20 @@ package com.ulyanaab.mtshomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.fragments.MainFragment
+import com.ulyanaab.mtshomework.fragments.ProfileFragment
 import com.ulyanaab.mtshomework.movies.MoviesDataSourceImpl
 import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.recyclerView.MoviesAdapter
-import kotlin.math.roundToInt
+import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
+import com.ulyanaab.mtshomework.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var recyclerViewGenres: RecyclerView
-    private lateinit var recyclerViewMovies: RecyclerView
-
-    private val moviesModel = MoviesModel(MoviesDataSourceImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,37 +28,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        recyclerViewGenres = findViewById(R.id.recycler_view_genre)
-        val adapter = GenreAdapter(getGenres(), this::adapterGenreListener)
-        recyclerViewGenres.adapter = adapter
-
-        recyclerViewMovies = findViewById(R.id.recycler_view_movies)
-        val adapter2 = MoviesAdapter(
-            moviesModel.getMovies(),
-            this::adapterMovieListener,
-            calculateImageSizeInPX(this)
-        )
-        recyclerViewMovies.adapter = adapter2
-    }
-
-    private fun getGenres(): MutableList<String> {
-        return mutableListOf("боевики", "драмы", "комедии", "артхаус", "мелодрамы", "детективы")
-    }
-
-    private fun adapterMovieListener(item: MovieDto) {
-        showToast("Вы нажали на фильм ${item.title}")
-    }
-
-    private fun adapterGenreListener(item: String) {
-        showToast(item)
-    }
-
-    private fun showToast(message: String?) {
-        when {
-            message.isNullOrEmpty() -> {
-                showToast("Пустое сообщение")
+        findViewById<View>(R.id.active_home).visibility = View.VISIBLE
+        findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
+        replaceFragment(this, MainFragment(), false)
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    replaceFragment(this, MainFragment(), false)
+                    findViewById<View>(R.id.active_home).visibility = View.VISIBLE
+                    findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
+                    true
+                }
+                R.id.profile -> {
+                    replaceFragment(this, ProfileFragment(), false)
+                    findViewById<View>(R.id.active_home).visibility = View.INVISIBLE
+                    findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
+                    true
+                }
+                else -> false
             }
-            else -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 

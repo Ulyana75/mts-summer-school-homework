@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.ProfileFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_profile_name"
+                android:textSize="@dimen/profile_name_size"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/profile_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_profile_mail"
+                android:textColor="@color/black"
+                android:textSize="@dimen/profile_mail_size"
+                app:layout_constraintStart_toStartOf="@+id/profile_name"
+                app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                android:layout_marginTop="2dp"/>
+
+            <ImageView
+                android:id="@+id/profile_photo"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/profile_photo_background"
+                app:layout_constraintTop_toTopOf="@+id/profile_name"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_mail"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="20dp"/>
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="28dp"
+                android:src="@drawable/profile_photo_smile"
+                app:layout_constraintTop_toTopOf="@+id/profile_photo"
+                app:layout_constraintStart_toStartOf="@+id/profile_photo"
+                app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_photo"/>
+
+            <TextView
+                android:id="@+id/interests_title"
+                android:text="@string/interests_title"
+                app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/profile_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_interests"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/interests_title"
+                app:layout_constraintStart_toStartOf="@+id/interests_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_genre"/>
+
+            <TextView
+                android:id="@+id/profile_data_title"
+                style="@style/profile_title"
+                android:text="@string/personal_data_title"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_interests"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <EditText
+                android:id="@+id/edittext_name"
+                app:layout_constraintTop_toBottomOf="@id/profile_data_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/name_hint"
+                style="@style/profile_edittext"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:id="@+id/edittext_password"
+                style="@style/profile_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"/>
+
+            <EditText
+                android:id="@+id/edittext_mail"
+                style="@style/profile_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/hint_mail"
+                android:inputType="textEmailAddress"/>
+
+            <EditText
+                android:id="@+id/edittext_phone"
+                style="@style/profile_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_mail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/hint_phone"
+                android:inputType="phone"/>
+
+            <TextView
+                android:id="@+id/settings_title"
+                style="@style/profile_title"
+                android:text="@string/settings_title"
+                app:layout_constraintTop_toBottomOf="@+id/edittext_phone"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_notifications"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settings_title"
+                style="@style/settings_button"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_notification_button"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_confident"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_notifications"
+                style="@style/settings_button">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_settings_confident"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_theme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_confident"
+                style="@style/settings_button">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_settings_theme"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_language"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_theme"
+                style="@style/settings_button">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_settings_language"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_memory"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_language"
+                style="@style/settings_button">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_settings_memory"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/title_app"
+                style="@style/profile_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/button_memory"
+                android:text="@string/profile_title_app"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_ask"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_app"
+                style="@style/settings_button"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_app_ask"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_problem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_ask"
+                style="@style/settings_button">
+
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/profile_app_problem"
+                    style="@style/settings_button_textview" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_profile_button"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_exit"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_constraintTop_toBottomOf="@+id/button_problem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="50dp"
+                android:text="@string/button_exit"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                app:cornerRadius="10dp"
+                android:backgroundTint="@color/gray"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

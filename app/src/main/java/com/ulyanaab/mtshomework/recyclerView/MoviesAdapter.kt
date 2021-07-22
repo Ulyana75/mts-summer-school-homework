@@ -1,8 +1,6 @@
 package com.ulyanaab.mtshomework.recyclerView
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.utilits.setRating
 
 class MoviesAdapter(
     private val dataList: List<MovieDto>,
@@ -46,12 +44,7 @@ class MoviesAdapter(
         holder.description.text = item.description
         holder.ageRestriction.text = "${item.ageRestriction}+"
 
-        for (i in 0 until item.rateScore) {
-            holder.rating[i].setImageDrawable(holder.itemView.context.getDrawable(R.drawable.ic_full_star))
-        }
-        for (i in 4 downTo item.rateScore) {
-            holder.rating[i].setImageDrawable(holder.itemView.context.getDrawable(R.drawable.ic_empty_star))
-        }
+        setRating(item.rateScore, holder.itemView)
 
         holder.itemView.setOnClickListener {
             listener(dataList[position])
@@ -64,11 +57,6 @@ class MoviesAdapter(
         val poster: ImageView = view.findViewById(R.id.film_poster)
         val title: TextView = view.findViewById(R.id.film_title)
         val description: TextView = view.findViewById(R.id.film_description)
-        val rating: List<ImageView> = listOf(
-            view.findViewById(R.id.star_first),
-            view.findViewById(R.id.star_second), view.findViewById(R.id.star_third),
-            view.findViewById(R.id.star_fourth), view.findViewById(R.id.star_fifth)
-        )
         val ageRestriction: TextView = view.findViewById(R.id.age_restriction)
     }
 
