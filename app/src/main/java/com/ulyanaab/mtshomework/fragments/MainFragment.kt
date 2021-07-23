@@ -19,6 +19,7 @@ import com.ulyanaab.mtshomework.utilits.replaceFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.IllegalArgumentException
 
 
@@ -28,6 +29,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerViewMovies: RecyclerView
 
     private val moviesModel = MoviesModel(MoviesDataSourceWithDelay())
+    private var movies = mutableListOf<MovieDto>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,14 +51,20 @@ class MainFragment : Fragment() {
         recyclerViewMovies = requireView().findViewById(R.id.recycler_view_movies)
 
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-            val movies = moviesModel.getMovies()
-            val adapter2 = MoviesAdapter(
-                movies,
-                this@MainFragment::adapterMovieListener,
-                calculateImageSizeInPX(requireContext())
-            )
-            recyclerViewMovies.adapter = adapter2
+            moviesModel.getMovies().forEach {
+                movies.add(it)
+            }
+            withContext(Dispatchers.Main) {
+                recyclerViewMovies.adapter?.notifyDataSetChanged()
+            }
         }
+
+        val adapter2 = MoviesAdapter(
+            movies,
+            this@MainFragment::adapterMovieListener,
+            calculateImageSizeInPX(requireContext())
+        )
+        recyclerViewMovies.adapter = adapter2
     }
 
     private fun getGenres(): MutableList<String> {
