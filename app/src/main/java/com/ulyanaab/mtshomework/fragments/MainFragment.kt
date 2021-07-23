@@ -27,7 +27,8 @@ class MainFragment : Fragment() {
 
     private lateinit var recyclerViewGenres: RecyclerView
     private lateinit var recyclerViewMovies: RecyclerView
-    lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private val moviesModel = MoviesModel(MoviesDataSourceWithDelay())
     private var movies = listOf<MovieDto>()
@@ -50,10 +51,10 @@ class MainFragment : Fragment() {
     }
 
     private fun initSwipeRefresh() {
-        val swipeRefreshLayout = requireView().findViewById<SwipeRefreshLayout>(R.id.swipe_refresh)
+        swipeRefreshLayout = requireView().findViewById(R.id.swipe_refresh)
+
         swipeRefreshLayout.setOnRefreshListener {
             updateMoviesList()
-            swipeRefreshLayout.isRefreshing = false
         }
 
         swipeRefreshLayout.setDistanceToTriggerSync(DISTANCE_FOR_SWIPE_REFRESH)
@@ -106,12 +107,14 @@ class MainFragment : Fragment() {
 
             movies = moviesModel.getMovies()
 
-            val diffResult = DiffUtil.calculateDiff(MoviesDiffUtilCallback(moviesAdapter.getData(), movies))
+            val diffResult =
+                DiffUtil.calculateDiff(MoviesDiffUtilCallback(moviesAdapter.getData(), movies))
             moviesAdapter.setData(movies)
 
             withContext(Dispatchers.Main) {
                 diffResult.dispatchUpdatesTo(moviesAdapter)
                 recyclerViewMovies.scrollToPosition(0)
+                swipeRefreshLayout.isRefreshing = false
             }
         }
     }
