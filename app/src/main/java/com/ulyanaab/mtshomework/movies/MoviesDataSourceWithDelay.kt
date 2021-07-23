@@ -5,7 +5,7 @@ import com.ulyanaab.mtshomework.dto.MovieDto
 class MoviesDataSourceWithDelay : MoviesDataSource {
 
     override fun getMovies(): List<MovieDto> {
-        Thread.sleep(2000)
+        Thread.sleep(2)
         return listOf(
             MovieDto(
                 title = "Гнев человеческий",

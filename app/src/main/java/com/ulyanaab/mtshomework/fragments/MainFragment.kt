@@ -70,6 +70,7 @@ class MainFragment : Fragment() {
             updateMoviesList()
             swipeRefreshLayout.isRefreshing = false
         }
+
         swipeRefreshLayout.setDistanceToTriggerSync(DISTANCE_FOR_SWIPE_REFRESH)
     }
 
@@ -97,7 +98,8 @@ class MainFragment : Fragment() {
     private fun updateMoviesList() {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             delay(2)
-            movies.add(0,
+            movies.add(
+                0,
                 MovieDto(
                     title = "Круэлла",
                     description = "Невероятно одаренная мошенница по имени Эстелла решает сделать себе имя в мире моды.",
@@ -106,7 +108,8 @@ class MainFragment : Fragment() {
                     imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hUfyYGP9Xf6cHF9y44JXJV3NxZM.jpg"
                 )
             )
-            movies.add(0,
+            movies.add(
+                0,
                 MovieDto(
                     title = "Чёрная вдова",
                     description = "Чёрной Вдове придется вспомнить о том, что было в её жизни задолго до присоединения к команде Мстителей",
