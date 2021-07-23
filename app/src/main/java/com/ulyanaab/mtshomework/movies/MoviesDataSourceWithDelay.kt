@@ -49,20 +49,20 @@ class MoviesDataSourceWithDelay : MoviesDataSource {
                 ageRestriction = 0,
                 imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xltjMeLlxywym14NEizl0metO10.jpg"
             ),
-            MovieDto(
-                title = "Круэлла",
-                description = "Невероятно одаренная мошенница по имени Эстелла решает сделать себе имя в мире моды.",
-                rateScore = 4,
-                ageRestriction = 12,
-                imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hUfyYGP9Xf6cHF9y44JXJV3NxZM.jpg"
-            ),
-            MovieDto(
-                title = "Чёрная вдова",
-                description = "Чёрной Вдове придется вспомнить о том, что было в её жизни задолго до присоединения к команде Мстителей",
-                rateScore = 3,
-                ageRestriction = 16,
-                imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mbtN6V6y5kdawvAkzqN4ohi576a.jpg"
-            ),
+//            MovieDto(
+//                title = "Круэлла",
+//                description = "Невероятно одаренная мошенница по имени Эстелла решает сделать себе имя в мире моды.",
+//                rateScore = 4,
+//                ageRestriction = 12,
+//                imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/hUfyYGP9Xf6cHF9y44JXJV3NxZM.jpg"
+//            ),
+//            MovieDto(
+//                title = "Чёрная вдова",
+//                description = "Чёрной Вдове придется вспомнить о том, что было в её жизни задолго до присоединения к команде Мстителей",
+//                rateScore = 3,
+//                ageRestriction = 16,
+//                imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mbtN6V6y5kdawvAkzqN4ohi576a.jpg"
+//            ),
         )
     }
 }
