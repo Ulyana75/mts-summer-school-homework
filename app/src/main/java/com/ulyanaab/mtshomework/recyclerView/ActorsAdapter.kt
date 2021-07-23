@@ -1,5 +1,6 @@
 package com.ulyanaab.mtshomework.recyclerView
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.dto.ActorDto
+import com.ulyanaab.mtshomework.utilits.loadImageAsync
 
 class ActorsAdapter(private val dataList: MutableList<ActorDto>) :
     RecyclerView.Adapter<ActorsAdapter.ActorsHolder>() {
@@ -19,7 +21,7 @@ class ActorsAdapter(private val dataList: MutableList<ActorDto>) :
     }
 
     override fun onBindViewHolder(holder: ActorsHolder, position: Int) {
-        holder.photo.load(dataList[position].drawable)
+        holder.photo.loadImageAsync(dataList[position].drawable)
         holder.name.text = dataList[position].name
     }
 

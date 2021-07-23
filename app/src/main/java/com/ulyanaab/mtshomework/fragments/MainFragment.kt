@@ -11,10 +11,15 @@ import com.ulyanaab.mtshomework.MoviesModel
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.dto.MovieDto
-import com.ulyanaab.mtshomework.movies.MoviesDataSourceImpl
+import com.ulyanaab.mtshomework.movies.MoviesDataSourceWithDelay
 import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.recyclerView.MoviesAdapter
+import com.ulyanaab.mtshomework.utilits.exceptionHandler
 import com.ulyanaab.mtshomework.utilits.replaceFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 
 
 class MainFragment : Fragment() {
@@ -22,7 +27,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerViewGenres: RecyclerView
     private lateinit var recyclerViewMovies: RecyclerView
 
-    private val moviesModel = MoviesModel(MoviesDataSourceImpl())
+    private val moviesModel = MoviesModel(MoviesDataSourceWithDelay())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +47,16 @@ class MainFragment : Fragment() {
         recyclerViewGenres.adapter = adapter
 
         recyclerViewMovies = requireView().findViewById(R.id.recycler_view_movies)
-        val adapter2 = MoviesAdapter(
-            moviesModel.getMovies(),
-            this::adapterMovieListener,
-            calculateImageSizeInPX(requireContext())
-        )
-        recyclerViewMovies.adapter = adapter2
+
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            val movies = moviesModel.getMovies()
+            val adapter2 = MoviesAdapter(
+                movies,
+                this@MainFragment::adapterMovieListener,
+                calculateImageSizeInPX(requireContext())
+            )
+            recyclerViewMovies.adapter = adapter2
+        }
     }
 
     private fun getGenres(): MutableList<String> {
