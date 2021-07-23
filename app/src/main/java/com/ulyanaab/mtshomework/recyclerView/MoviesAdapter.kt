@@ -13,7 +13,7 @@ import com.ulyanaab.mtshomework.utilits.loadImageAsync
 import com.ulyanaab.mtshomework.utilits.setRating
 
 class MoviesAdapter(
-    private val dataList: List<MovieDto>,
+    private var dataList: List<MovieDto>,
     private val listener: (item: MovieDto) -> Unit,
     private val imgMetrics: Pair<Int, Int>?
 ) : RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
@@ -52,6 +52,12 @@ class MoviesAdapter(
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    fun setData(newData: List<MovieDto>) {
+        dataList = newData
+    }
+
+    fun getData(): List<MovieDto> = dataList
 
     class MoviesHolder(view: View) : RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.film_poster)
