@@ -1,7 +1,6 @@
 package com.ulyanaab.mtshomework.movies
 
 import com.ulyanaab.mtshomework.dto.MovieDto
-import com.ulyanaab.mtshomework.movies.MoviesDataSource
 
 class MoviesDataSourceImpl : MoviesDataSource {
     override fun getMovies() = listOf(

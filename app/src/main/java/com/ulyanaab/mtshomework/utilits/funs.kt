@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import coil.Coil
 import coil.load
 import com.ulyanaab.mtshomework.R
 import kotlinx.coroutines.CoroutineScope
