@@ -1,13 +1,12 @@
 package com.ulyanaab.mtshomework.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.view.fragments.MainFragment
-import com.ulyanaab.mtshomework.view.fragments.ProfileFragment
-import com.ulyanaab.mtshomework.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,19 +23,14 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         findViewById<View>(R.id.active_home).visibility = View.VISIBLE
         findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
-        replaceFragment(this, MainFragment(), false)
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    replaceFragment(this, MainFragment(), false)
-                    findViewById<View>(R.id.active_home).visibility = View.VISIBLE
-                    findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
                     true
                 }
                 R.id.profile -> {
-                    replaceFragment(this, ProfileFragment(), false)
-                    findViewById<View>(R.id.active_home).visibility = View.INVISIBLE
-                    findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
                     true
                 }
                 else -> false

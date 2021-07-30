@@ -31,6 +31,9 @@ class ProfileFragment : Fragment() {
         recyclerViewInterests = requireView().findViewById(R.id.recycler_view_interests)
         val adapter = GenreAdapter(getGenres(), this::adapterGenreListener)
         recyclerViewInterests.adapter = adapter
+
+        requireActivity().findViewById<View>(R.id.active_home).visibility = View.INVISIBLE
+        requireActivity().findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
     }
 
     private fun getGenres(): List<GenreDto> {

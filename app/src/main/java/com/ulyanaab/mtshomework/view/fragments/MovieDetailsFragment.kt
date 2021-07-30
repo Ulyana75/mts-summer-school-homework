@@ -13,6 +13,7 @@ import coil.load
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
+import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
 import com.ulyanaab.mtshomework.view.recyclerView.ActorsAdapter
 import com.ulyanaab.mtshomework.utilits.setRating
 
@@ -23,18 +24,6 @@ class MovieDetailsFragment : Fragment() {
 
     private lateinit var recyclerViewActors: RecyclerView
 
-    companion object {
-
-        private const val KEY_TO_SEND_MOVIEDTO = "movie"
-
-        fun newInstance(message: MovieDto): Fragment {
-            val args = Bundle()
-            args.putSerializable(KEY_TO_SEND_MOVIEDTO, message)
-            val fragment = MovieDetailsFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

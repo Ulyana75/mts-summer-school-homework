@@ -1,25 +1,26 @@
 package com.ulyanaab.mtshomework.view.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
-import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
+import com.ulyanaab.mtshomework.model.dto.MovieDto
+import com.ulyanaab.mtshomework.utilits.DISTANCE_FOR_SWIPE_REFRESH
+import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.diffUtil.MoviesDiffUtilCallback
-import com.ulyanaab.mtshomework.utilits.DISTANCE_FOR_SWIPE_REFRESH
-import com.ulyanaab.mtshomework.utilits.replaceFragment
 import com.ulyanaab.mtshomework.viewModel.MainViewModel
 import kotlinx.coroutines.*
 
@@ -50,6 +51,8 @@ class MainFragment : Fragment() {
     private fun initViews() {
         initRecyclerViews()
         initSwipeRefresh()
+        requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
+        requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
     }
 
     private fun initSwipeRefresh() {
@@ -95,7 +98,11 @@ class MainFragment : Fragment() {
     }
 
     private fun adapterMovieListener(item: MovieDto) {
-        replaceFragment(requireActivity(), MovieDetailsFragment.newInstance(item), true)
+        requireView().findNavController().navigate(
+            R.id.movieDetailsFragment, bundleOf(
+                KEY_TO_SEND_MOVIEDTO to item
+            )
+        )
     }
 
     private fun adapterGenreListener(item: GenreDto) {

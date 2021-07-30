@@ -36,18 +36,18 @@ fun convertToPX(value: Int, dpi: Int): Int {
     return (value * (dpi / 160.0)).toInt()
 }
 
-fun replaceFragment(activity: FragmentActivity, fragment: Fragment, addToBackStack: Boolean) {
-    if (addToBackStack) {
-        activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.data_container, fragment)
-            .addToBackStack(null)
-            .commit()
-    } else {
-        activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.data_container, fragment)
-            .commit()
-    }
-}
+//fun replaceFragment(activity: FragmentActivity, fragment: Fragment, addToBackStack: Boolean) {
+//    if (addToBackStack) {
+//        activity.supportFragmentManager.beginTransaction()
+//            .replace(R.id.data_container, fragment)
+//            .addToBackStack(null)
+//            .commit()
+//    } else {
+//        activity.supportFragmentManager.beginTransaction()
+//            .replace(R.id.data_container, fragment)
+//            .commit()
+//    }
+//}
 
 @SuppressLint("UseCompatLoadingForDrawables")
 fun setRating(rating: Int, view: View) {

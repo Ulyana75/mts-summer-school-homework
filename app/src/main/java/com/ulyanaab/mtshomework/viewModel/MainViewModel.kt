@@ -1,10 +1,8 @@
 package com.ulyanaab.mtshomework.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.ulyanaab.mtshomework.model.dataSource.MoviesDataSourceWithDelay
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
