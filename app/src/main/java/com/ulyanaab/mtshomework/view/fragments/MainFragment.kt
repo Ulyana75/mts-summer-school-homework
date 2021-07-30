@@ -1,6 +1,7 @@
-package com.ulyanaab.mtshomework.fragments
+package com.ulyanaab.mtshomework.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +15,9 @@ import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
-import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
-import com.ulyanaab.mtshomework.recyclerView.MoviesAdapter
-import com.ulyanaab.mtshomework.recyclerView.diffUtil.MoviesDiffUtilCallback
+import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.diffUtil.MoviesDiffUtilCallback
 import com.ulyanaab.mtshomework.utilits.DISTANCE_FOR_SWIPE_REFRESH
 import com.ulyanaab.mtshomework.utilits.replaceFragment
 import com.ulyanaab.mtshomework.viewModel.MainViewModel
@@ -55,7 +56,10 @@ class MainFragment : Fragment() {
         swipeRefreshLayout = requireView().findViewById(R.id.swipe_refresh)
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getMovies()
+            viewModel.getMovies(callback = {
+                recyclerViewMovies.scrollToPosition(0)
+                swipeRefreshLayout.isRefreshing = false
+            })
             viewModel.getPopularGenres()
         }
 
@@ -87,8 +91,6 @@ class MainFragment : Fragment() {
             moviesAdapter.setData(it)
 
             diffResult.dispatchUpdatesTo(moviesAdapter)
-            recyclerViewMovies.scrollToPosition(0)
-            swipeRefreshLayout.isRefreshing = false
         })
     }
 

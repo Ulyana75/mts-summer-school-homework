@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.recyclerView.diffUtil
+package com.ulyanaab.mtshomework.view.recyclerView.diffUtil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.ulyanaab.mtshomework.model.dto.MovieDto

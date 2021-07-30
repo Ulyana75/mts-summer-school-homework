@@ -1,11 +1,12 @@
-package com.ulyanaab.mtshomework
+package com.ulyanaab.mtshomework.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ulyanaab.mtshomework.fragments.MainFragment
-import com.ulyanaab.mtshomework.fragments.ProfileFragment
+import com.ulyanaab.mtshomework.R
+import com.ulyanaab.mtshomework.view.fragments.MainFragment
+import com.ulyanaab.mtshomework.view.fragments.ProfileFragment
 import com.ulyanaab.mtshomework.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {

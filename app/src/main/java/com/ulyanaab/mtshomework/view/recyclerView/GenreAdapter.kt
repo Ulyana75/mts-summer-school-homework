@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.recyclerView
+package com.ulyanaab.mtshomework.view.recyclerView
 
 import android.view.LayoutInflater
 import android.view.View

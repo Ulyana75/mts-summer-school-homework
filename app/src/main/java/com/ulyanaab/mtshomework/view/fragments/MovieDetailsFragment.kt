@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.fragments
+package com.ulyanaab.mtshomework.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,7 +13,7 @@ import coil.load
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.recyclerView.ActorsAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.ActorsAdapter
 import com.ulyanaab.mtshomework.utilits.setRating
 
 
@@ -25,7 +25,7 @@ class MovieDetailsFragment : Fragment() {
 
     companion object {
 
-        private val KEY_TO_SEND_MOVIEDTO = "movie"
+        private const val KEY_TO_SEND_MOVIEDTO = "movie"
 
         fun newInstance(message: MovieDto): Fragment {
             val args = Bundle()

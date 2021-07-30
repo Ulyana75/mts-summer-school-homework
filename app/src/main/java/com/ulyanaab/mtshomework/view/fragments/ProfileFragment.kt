@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.fragments
+package com.ulyanaab.mtshomework.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.GenreDto
-import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 
 
 class ProfileFragment : Fragment() {

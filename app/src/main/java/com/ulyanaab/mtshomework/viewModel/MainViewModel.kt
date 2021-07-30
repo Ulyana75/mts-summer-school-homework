@@ -12,6 +12,7 @@ import com.ulyanaab.mtshomework.utilits.exceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
 
@@ -36,11 +37,15 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getMovies() {
+    fun getMovies(callback: () -> Unit = {}) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             val movies = model.getMovies()
             _moviesLiveData.postValue(movies)
             cacheMovieData = movies
+
+            withContext(Dispatchers.Main) {
+                callback()
+            }
         }
     }
 
