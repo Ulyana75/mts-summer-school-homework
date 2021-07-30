@@ -3,16 +3,9 @@ package com.ulyanaab.mtshomework
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ulyanaab.mtshomework.dto.MovieDto
 import com.ulyanaab.mtshomework.fragments.MainFragment
 import com.ulyanaab.mtshomework.fragments.ProfileFragment
-import com.ulyanaab.mtshomework.movies.MoviesDataSourceImpl
-import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
-import com.ulyanaab.mtshomework.recyclerView.MoviesAdapter
-import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {

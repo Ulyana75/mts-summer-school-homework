@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilits.loadImageAsync
 import com.ulyanaab.mtshomework.utilits.setRating
 

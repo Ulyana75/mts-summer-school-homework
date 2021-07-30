@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
+import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
 
 
@@ -32,11 +33,11 @@ class ProfileFragment : Fragment() {
         recyclerViewInterests.adapter = adapter
     }
 
-    private fun getGenres(): MutableList<String> {
-        return mutableListOf("боевики", "драмы", "комедии")
+    private fun getGenres(): List<GenreDto> {
+        return listOf(GenreDto("боевики"), GenreDto("драмы"), GenreDto("комедии"))
     }
 
-    private fun adapterGenreListener(item: String) {
+    private fun adapterGenreListener(item: GenreDto) {
         // do nothing
     }
 

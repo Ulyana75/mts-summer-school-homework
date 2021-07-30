@@ -1,6 +1,7 @@
-package com.ulyanaab.mtshomework.movies
+package com.ulyanaab.mtshomework.model.dataSource
 
-import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.model.dto.GenreDto
+import com.ulyanaab.mtshomework.model.dto.MovieDto
 
 class MoviesDataSourceWithDelay : MoviesDataSource {
 
@@ -81,5 +82,13 @@ class MoviesDataSourceWithDelay : MoviesDataSource {
         }
 
         return tempList
+    }
+
+    override fun getPopularGenres(): List<GenreDto> {
+        return listOf(
+            GenreDto("боевики"), GenreDto("драмы"),
+            GenreDto("комедии"), GenreDto("артхаус"),
+            GenreDto("мелодрамы"), GenreDto("детективы")
+        )
     }
 }

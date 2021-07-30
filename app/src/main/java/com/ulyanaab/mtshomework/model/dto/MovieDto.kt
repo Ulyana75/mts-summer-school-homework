@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.dto
+package com.ulyanaab.mtshomework.model.dto
 
 import java.io.Serializable
 

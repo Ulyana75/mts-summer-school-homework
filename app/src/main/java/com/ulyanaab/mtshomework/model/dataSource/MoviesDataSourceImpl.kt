@@ -1,6 +1,7 @@
-package com.ulyanaab.mtshomework.movies
+package com.ulyanaab.mtshomework.model.dataSource
 
-import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.model.dto.GenreDto
+import com.ulyanaab.mtshomework.model.dto.MovieDto
 
 class MoviesDataSourceImpl : MoviesDataSource {
     override fun getMovies() = listOf(
@@ -61,4 +62,12 @@ class MoviesDataSourceImpl : MoviesDataSource {
             imageUrl = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/mbtN6V6y5kdawvAkzqN4ohi576a.jpg"
         ),
     )
+
+    override fun getPopularGenres(): List<GenreDto> {
+        return listOf(
+            GenreDto("боевики"), GenreDto("драмы"),
+            GenreDto("комедии"), GenreDto("артхаус"),
+            GenreDto("мелодрамы"), GenreDto("детективы")
+        )
+    }
 }

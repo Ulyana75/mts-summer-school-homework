@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.dto.ActorDto
-import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.model.dto.ActorDto
+import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.recyclerView.ActorsAdapter
 import com.ulyanaab.mtshomework.utilits.setRating
 
