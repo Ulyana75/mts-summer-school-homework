@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.ulyanaab.mtshomework.model.dataSource.MoviesDataSourceWithDelay
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.utilits.exceptionHandler
+import com.ulyanaab.mtshomework.utilities.exceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

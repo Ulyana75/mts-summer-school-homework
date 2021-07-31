@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.utilits
+package com.ulyanaab.mtshomework.utilities
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineExceptionHandler

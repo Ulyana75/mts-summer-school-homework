@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.utilits.loadImageAsync
-import com.ulyanaab.mtshomework.utilits.setRating
+import com.ulyanaab.mtshomework.utilities.loadImageAsync
+import com.ulyanaab.mtshomework.utilities.setRating
 
 class MoviesAdapter(
     private var dataList: List<MovieDto>,

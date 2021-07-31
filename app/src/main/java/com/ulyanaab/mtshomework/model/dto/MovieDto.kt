@@ -8,4 +8,4 @@ data class MovieDto(
     val rateScore: Int,
     val ageRestriction: Int,
     val imageUrl: String
-): Serializable
+) : Serializable

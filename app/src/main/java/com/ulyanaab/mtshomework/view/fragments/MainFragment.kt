@@ -15,9 +15,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.utilits.DISTANCE_FOR_SWIPE_REFRESH
-import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
-import com.ulyanaab.mtshomework.utilits.calculateImageSizeInPX
+import com.ulyanaab.mtshomework.utilities.DISTANCE_FOR_SWIPE_REFRESH
+import com.ulyanaab.mtshomework.utilities.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilities.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.diffUtil.MoviesDiffUtilCallback

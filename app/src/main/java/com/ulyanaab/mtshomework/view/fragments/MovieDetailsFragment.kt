@@ -9,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
-import com.ulyanaab.mtshomework.utilits.loadImageAsync
+import com.ulyanaab.mtshomework.utilities.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilities.loadImageAsync
 import com.ulyanaab.mtshomework.view.recyclerView.ActorsAdapter
-import com.ulyanaab.mtshomework.utilits.setRating
+import com.ulyanaab.mtshomework.utilities.setRating
 
 
 class MovieDetailsFragment : Fragment() {

@@ -1,11 +1,9 @@
-package com.ulyanaab.mtshomework.utilits
+package com.ulyanaab.mtshomework.utilities
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import coil.load
 import com.ulyanaab.mtshomework.R
 import kotlinx.coroutines.CoroutineScope

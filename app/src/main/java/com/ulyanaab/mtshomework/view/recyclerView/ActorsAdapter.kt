@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
-import com.ulyanaab.mtshomework.utilits.loadImageAsync
+import com.ulyanaab.mtshomework.utilities.loadImageAsync
 
 class ActorsAdapter(private val dataList: MutableList<ActorDto>) :
     RecyclerView.Adapter<ActorsAdapter.ActorsHolder>() {
