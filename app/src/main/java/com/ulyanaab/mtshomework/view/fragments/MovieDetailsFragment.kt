@@ -14,6 +14,7 @@ import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilits.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilits.loadImageAsync
 import com.ulyanaab.mtshomework.view.recyclerView.ActorsAdapter
 import com.ulyanaab.mtshomework.utilits.setRating
 
@@ -43,7 +44,7 @@ class MovieDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initViews() {
         with(requireView()) {
-            findViewById<ImageView>(R.id.movie_image).load(movieObj!!.imageUrl)
+            findViewById<ImageView>(R.id.movie_image).loadImageAsync(movieObj!!.imageUrl)
             findViewById<TextView>(R.id.movie_title).text = movieObj!!.title
             findViewById<TextView>(R.id.age_restriction).text = "${movieObj!!.ageRestriction}+"
             setRating(movieObj!!.rateScore, this)
