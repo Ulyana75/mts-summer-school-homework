@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.dto.MovieDto
+import com.ulyanaab.mtshomework.utilits.loadImageAsync
 import com.ulyanaab.mtshomework.utilits.setRating
 
 class MoviesAdapter(
-    private val dataList: List<MovieDto>,
+    private var dataList: List<MovieDto>,
     private val listener: (item: MovieDto) -> Unit,
     private val imgMetrics: Pair<Int, Int>?
 ) : RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
@@ -39,7 +39,7 @@ class MoviesAdapter(
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MoviesHolder, position: Int) {
         val item = dataList[position]
-        holder.poster.load(item.imageUrl)
+        holder.poster.loadImageAsync(item.imageUrl)
         holder.title.text = item.title
         holder.description.text = item.description
         holder.ageRestriction.text = "${item.ageRestriction}+"
@@ -52,6 +52,12 @@ class MoviesAdapter(
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    fun setData(newData: List<MovieDto>) {
+        dataList = newData
+    }
+
+    fun getData(): List<MovieDto> = dataList
 
     class MoviesHolder(view: View) : RecyclerView.ViewHolder(view) {
         val poster: ImageView = view.findViewById(R.id.film_poster)

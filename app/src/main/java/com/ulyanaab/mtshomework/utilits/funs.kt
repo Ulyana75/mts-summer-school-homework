@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import coil.load
 import com.ulyanaab.mtshomework.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 fun calculateImageSizeInPX(context: Context): Pair<Int, Int>? {
     val dpi = context.resources.displayMetrics.densityDpi
@@ -59,5 +63,45 @@ fun setRating(rating: Int, view: View) {
     }
     for (i in 4 downTo rating) {
         starList[i].setImageDrawable(context.getDrawable(R.drawable.ic_empty_star))
+    }
+}
+
+fun ImageView.loadImageAsync(uri: String) {
+    val job = CoroutineScope(Dispatchers.IO)
+
+    val listener = object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(v: View?) {}
+
+        override fun onViewDetachedFromWindow(v: View?) {
+            job.cancel()
+            removeOnAttachStateChangeListener(this)
+        }
+    }
+    this.addOnAttachStateChangeListener(listener)
+
+    job.launch(exceptionHandler) {
+        this@loadImageAsync.load(uri) {
+            placeholder(R.drawable.placeholder)
+        }
+        this@loadImageAsync.removeOnAttachStateChangeListener(listener)
+    }
+}
+
+fun ImageView.loadImageAsync(drawable: Int) {
+    val job = CoroutineScope(Dispatchers.IO)
+
+    val listener = object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(v: View?) {}
+
+        override fun onViewDetachedFromWindow(v: View?) {
+            job.cancel()
+            removeOnAttachStateChangeListener(this)
+        }
+    }
+    this.addOnAttachStateChangeListener(listener)
+
+    job.launch(exceptionHandler) {
+        this@loadImageAsync.load(drawable)
+        this@loadImageAsync.removeOnAttachStateChangeListener(listener)
     }
 }
