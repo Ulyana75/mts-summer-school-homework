@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.fragments
+package com.ulyanaab.mtshomework.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
-import com.ulyanaab.mtshomework.recyclerView.GenreAdapter
+import com.ulyanaab.mtshomework.model.dto.GenreDto
+import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 
 
 class ProfileFragment : Fragment() {
@@ -30,13 +31,16 @@ class ProfileFragment : Fragment() {
         recyclerViewInterests = requireView().findViewById(R.id.recycler_view_interests)
         val adapter = GenreAdapter(getGenres(), this::adapterGenreListener)
         recyclerViewInterests.adapter = adapter
+
+        requireActivity().findViewById<View>(R.id.active_home).visibility = View.INVISIBLE
+        requireActivity().findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
     }
 
-    private fun getGenres(): MutableList<String> {
-        return mutableListOf("боевики", "драмы", "комедии")
+    private fun getGenres(): List<GenreDto> {
+        return listOf(GenreDto("боевики"), GenreDto("драмы"), GenreDto("комедии"))
     }
 
-    private fun adapterGenreListener(item: String) {
+    private fun adapterGenreListener(item: GenreDto) {
         // do nothing
     }
 

@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.dto
+package com.ulyanaab.mtshomework.model.dto
 
 import java.io.Serializable
 
@@ -8,4 +8,4 @@ data class MovieDto(
     val rateScore: Int,
     val ageRestriction: Int,
     val imageUrl: String
-): Serializable
+) : Serializable

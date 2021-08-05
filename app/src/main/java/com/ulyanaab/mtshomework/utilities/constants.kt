@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.utilits
+package com.ulyanaab.mtshomework.utilities
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -10,3 +10,5 @@ val exceptionHandler = CoroutineExceptionHandler { _, exception ->
 }
 
 const val DISTANCE_FOR_SWIPE_REFRESH = 500
+
+const val KEY_TO_SEND_MOVIEDTO = "movie"

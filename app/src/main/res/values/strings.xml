@@ -28,4 +28,6 @@
     <string name="profile_app_ask">Задать вопрос</string>
     <string name="profile_app_problem">Сообщить о проблеме</string>
     <string name="button_exit">Выйти</string>
+    <string name="notification_channel_name">notification_channel</string>
+    <string name="notification_channel_description">notification_channel_description</string>
 </resources>

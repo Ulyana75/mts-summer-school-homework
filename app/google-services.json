@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1004297986775",
+    "project_id": "movieapp-bad25",
+    "storage_bucket": "movieapp-bad25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004297986775:android:510927d1d5699980664692",
+        "android_client_info": {
+          "package_name": "com.ulyanaab.mtshomework"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004297986775-4diiq5defvppjhu1fpuc5k4lknqgv5om.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKU04plcJd9pq_p_BnF83mKas217NcBiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004297986775-4diiq5defvppjhu1fpuc5k4lknqgv5om.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
