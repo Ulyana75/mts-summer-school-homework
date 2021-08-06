@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -27,7 +28,7 @@ import kotlinx.coroutines.*
 
 class MainFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     private lateinit var recyclerViewGenres: RecyclerView
     private lateinit var recyclerViewMovies: RecyclerView
@@ -39,7 +40,6 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this.requireActivity()).get(MainViewModel::class.java)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -48,11 +48,15 @@ class MainFragment : Fragment() {
         initViews()
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
+        requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
+    }
+
     private fun initViews() {
         initRecyclerViews()
         initSwipeRefresh()
-        requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
-        requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
     }
 
     private fun initSwipeRefresh() {
