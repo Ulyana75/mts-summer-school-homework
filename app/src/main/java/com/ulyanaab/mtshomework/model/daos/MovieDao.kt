@@ -12,13 +12,13 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(movie: MovieDto)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAll(movies: List<MovieDto>)
+
     @Update
     fun update(movie: MovieDto)
 
     @Delete
     fun delete(movie: MovieDto)
-
-    @Query("SELECT * FROM Movie WHERE title LIKE :title")
-    fun getMovieByTitle(title: String): MovieDto
 
 }

@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import com.ulyanaab.mtshomework.model.daos.UserDao
 import com.ulyanaab.mtshomework.model.dto.UserDto
 import com.ulyanaab.mtshomework.model.common.AppDatabase
+import com.ulyanaab.mtshomework.model.dataSource.local.LocalUserDataSource
+import com.ulyanaab.mtshomework.model.dataSource.local.RoomLocalUserDataSource
 import com.ulyanaab.mtshomework.utilities.exceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,7 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
     val profileLiveData: LiveData<UserDto> get() = _profileLiveData
     private val _profileLiveData = MutableLiveData<UserDto>()
 
-    private val userDao: UserDao = AppDatabase.getInstance(application).userDao()
+    private val localModel: LocalUserDataSource = RoomLocalUserDataSource(application)
 
 
     init {
@@ -32,7 +34,7 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
         if(userId == -1L) {
 
             CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-                val newId = userDao.addUser(UserDto())
+                val newId = localModel.add(UserDto())
                 sPref.edit().putLong("userId", newId).apply()
                 postValueById(newId)
             }
@@ -44,14 +46,14 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
 
     private fun postValueById(id: Long) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-            val user = userDao.getUserById(id)
+            val user = localModel.getById(id)
             _profileLiveData.postValue(user)
         }
     }
 
     fun updateUserData(user: UserDto) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-            userDao.updateUser(user)
+            localModel.update(user)
             _profileLiveData.postValue(user)
         }
     }

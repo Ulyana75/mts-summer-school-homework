@@ -1,9 +1,13 @@
 package com.ulyanaab.mtshomework.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.ulyanaab.mtshomework.model.dataSource.MoviesDataSourceWithDelay
+import com.ulyanaab.mtshomework.model.dataSource.local.LocalMovieDataSource
+import com.ulyanaab.mtshomework.model.dataSource.remote.MoviesDataSource
+import com.ulyanaab.mtshomework.model.dataSource.remote.MoviesDataSourceWithDelay
+import com.ulyanaab.mtshomework.model.dataSource.local.RoomLocalMovieDataSource
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilities.exceptionHandler
@@ -12,9 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var model = MoviesDataSourceWithDelay()
+    private var remoteModel: MoviesDataSource = MoviesDataSourceWithDelay()
+    private var localModel: LocalMovieDataSource = RoomLocalMovieDataSource(application)
 
     val moviesLiveData: LiveData<List<MovieDto>> get() = _moviesLiveData
     private val _moviesLiveData = MutableLiveData<List<MovieDto>>()
@@ -22,7 +27,6 @@ class MainViewModel : ViewModel() {
     val genresLiveData: LiveData<List<GenreDto>> get() = _genresLiveData
     private val _genresLiveData = MutableLiveData<List<GenreDto>>()
 
-    var cacheMovieData = listOf<MovieDto>()
 
     init {
         getPopularGenres()
@@ -31,15 +35,28 @@ class MainViewModel : ViewModel() {
 
     fun getPopularGenres() {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-            _genresLiveData.postValue(model.getPopularGenres())
+            _genresLiveData.postValue(remoteModel.getPopularGenres())
         }
     }
 
-    fun getMovies(callback: () -> Unit = {}) {
+    private fun getMovies() {
+
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
-            val movies = model.getMovies()
+            _moviesLiveData.postValue(localModel.getAll())
+        }
+
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            val movies = remoteModel.getMovies()
             _moviesLiveData.postValue(movies)
-            cacheMovieData = movies
+            localModel.addAll(movies)
+        }
+    }
+
+    fun updateMovies(callback: () -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
+            val movies = remoteModel.getMovies()
+            _moviesLiveData.postValue(movies)
+            localModel.addAll(movies)
 
             withContext(Dispatchers.Main) {
                 callback()

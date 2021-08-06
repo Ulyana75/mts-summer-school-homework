@@ -63,7 +63,7 @@ class MainFragment : Fragment() {
         swipeRefreshLayout = requireView().findViewById(R.id.swipe_refresh)
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getMovies(callback = {
+            viewModel.updateMovies(callback = {
                 recyclerViewMovies.scrollToPosition(0)
                 swipeRefreshLayout.isRefreshing = false
             })
@@ -86,7 +86,7 @@ class MainFragment : Fragment() {
 
         recyclerViewMovies = requireView().findViewById(R.id.recycler_view_movies)
         moviesAdapter = MoviesAdapter(
-            viewModel.cacheMovieData,
+            listOf(),
             this@MainFragment::adapterMovieListener,
             calculateImageSizeInPX(requireContext())
         )
