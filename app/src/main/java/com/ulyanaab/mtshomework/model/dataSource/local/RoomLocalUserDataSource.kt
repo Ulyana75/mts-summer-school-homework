@@ -4,7 +4,7 @@ import android.content.Context
 import com.ulyanaab.mtshomework.model.common.AppDatabase
 import com.ulyanaab.mtshomework.model.dto.UserDto
 
-class RoomLocalUserDataSource(context: Context): LocalUserDataSource {
+class RoomLocalUserDataSource(context: Context) : LocalUserDataSource {
 
     private val userDao = AppDatabase.getInstance(context).userDao()
 

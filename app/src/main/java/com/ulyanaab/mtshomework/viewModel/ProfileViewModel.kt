@@ -10,6 +10,8 @@ import com.ulyanaab.mtshomework.model.dto.UserDto
 import com.ulyanaab.mtshomework.model.common.AppDatabase
 import com.ulyanaab.mtshomework.model.dataSource.local.LocalUserDataSource
 import com.ulyanaab.mtshomework.model.dataSource.local.RoomLocalUserDataSource
+import com.ulyanaab.mtshomework.utilities.KEY_CURRENT_USER
+import com.ulyanaab.mtshomework.utilities.KEY_USER_ID
 import com.ulyanaab.mtshomework.utilities.exceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,14 +30,14 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
     }
 
     private fun initCurrentUser() {
-        val sPref = getApplication<Application>().getSharedPreferences("currentUser", Context.MODE_PRIVATE)
-        val userId = sPref.getLong("userId", -1)
+        val sPref = getApplication<Application>().getSharedPreferences(KEY_CURRENT_USER, Context.MODE_PRIVATE)
+        val userId = sPref.getLong(KEY_USER_ID, -1)
 
         if(userId == -1L) {
 
             CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
                 val newId = localModel.add(UserDto())
-                sPref.edit().putLong("userId", newId).apply()
+                sPref.edit().putLong(KEY_USER_ID, newId).apply()
                 postValueById(newId)
             }
 

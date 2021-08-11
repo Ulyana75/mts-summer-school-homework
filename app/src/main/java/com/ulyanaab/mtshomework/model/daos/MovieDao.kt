@@ -21,4 +21,7 @@ interface MovieDao {
     @Delete
     fun delete(movie: MovieDto)
 
+    @Query("DELETE FROM Movie")
+    fun clear()
+
 }

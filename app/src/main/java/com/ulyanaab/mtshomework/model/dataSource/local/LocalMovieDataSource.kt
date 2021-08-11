@@ -14,4 +14,6 @@ interface LocalMovieDataSource {
 
     fun delete(movie: MovieDto)
 
+    fun clear()
+
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import com.ulyanaab.mtshomework.model.common.AppDatabase
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 
-class RoomLocalMovieDataSource(context: Context): LocalMovieDataSource {
+class RoomLocalMovieDataSource(context: Context) : LocalMovieDataSource {
 
     private val movieDao = AppDatabase.getInstance(context).movieDao()
 
@@ -26,5 +26,9 @@ class RoomLocalMovieDataSource(context: Context): LocalMovieDataSource {
 
     override fun delete(movie: MovieDto) {
         movieDao.delete(movie)
+    }
+
+    override fun clear() {
+        movieDao.clear()
     }
 }

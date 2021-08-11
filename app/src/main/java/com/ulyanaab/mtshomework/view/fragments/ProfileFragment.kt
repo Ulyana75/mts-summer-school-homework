@@ -45,8 +45,8 @@ class ProfileFragment : Fragment() {
         requireActivity().findViewById<View>(R.id.active_profile).visibility = View.VISIBLE
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         with(requireView()) {
             currentUser.name = findViewById<EditText>(R.id.edittext_name).text.toString()
             currentUser.password = findViewById<EditText>(R.id.edittext_password).text.toString()
