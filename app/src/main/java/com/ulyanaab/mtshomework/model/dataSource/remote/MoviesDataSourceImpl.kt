@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.model.dataSource
+package com.ulyanaab.mtshomework.model.dataSource.remote
 
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto

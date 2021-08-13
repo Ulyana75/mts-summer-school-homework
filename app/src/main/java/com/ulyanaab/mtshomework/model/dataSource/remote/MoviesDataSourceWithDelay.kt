@@ -1,4 +1,4 @@
-package com.ulyanaab.mtshomework.model.dataSource
+package com.ulyanaab.mtshomework.model.dataSource.remote
 
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
@@ -9,7 +9,7 @@ class MoviesDataSourceWithDelay : MoviesDataSource {
 
     override fun getMovies(): List<MovieDto> {
 
-        Thread.sleep(2)
+        Thread.sleep(2000)
 
         val tempList = mutableListOf(
             MovieDto(
