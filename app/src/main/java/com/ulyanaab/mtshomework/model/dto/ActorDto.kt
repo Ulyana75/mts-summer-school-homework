@@ -1,6 +1,10 @@
 package com.ulyanaab.mtshomework.model.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class ActorDto(
+    @SerializedName("name")
     val name: String,
-    val drawable: Int
+    @SerializedName("profile_path")
+    var imageUrl: String
 )

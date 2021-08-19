@@ -2,6 +2,7 @@ package com.ulyanaab.mtshomework.model.dataSource.remote
 
 import com.ulyanaab.mtshomework.App
 import com.ulyanaab.mtshomework.model.dataSource.remote.retrofit.MovieResponse
+import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilities.API_KEY
@@ -18,7 +19,7 @@ class RetrofitMoviesDataSource : MoviesDataSource {
 
 
     override fun getMovies(): List<MovieDto> = runBlocking {
-        val moviesResponse = App.moviesApi.getMovies(API_KEY, 2021).results // TODO current year
+        val moviesResponse = App.moviesApi.getMovies( 2021).results // TODO current year
         return@runBlocking convertToMoviesDto(moviesResponse)
     }
 
@@ -28,6 +29,14 @@ class RetrofitMoviesDataSource : MoviesDataSource {
             GenreDto("комедии"), GenreDto("артхаус"),
             GenreDto("мелодрамы"), GenreDto("детективы")
         )
+    }
+
+    override fun getActors(movieId: Int): List<ActorDto> = runBlocking {
+        val actors = App.moviesApi.getActors(movieId).cast
+        actors.forEach {
+            it.imageUrl = BASE_FOR_IMAGES + it.imageUrl
+        }
+        return@runBlocking actors
     }
 
     private suspend fun convertToMoviesDto(list: List<MovieResponse>): List<MovieDto> {
@@ -42,7 +51,9 @@ class RetrofitMoviesDataSource : MoviesDataSource {
                         getAgeRestriction(it.id),
                         BASE_FOR_IMAGES + it.poster_path,
                         BASE_FOR_IMAGES + it.backdrop_path,
-                        getGenres(it.genre_ids)
+                        getGenres(it.genre_ids),
+                        it.id,
+                        it.release_date
                     )
                 }.await()
             )
@@ -55,7 +66,7 @@ class RetrofitMoviesDataSource : MoviesDataSource {
     }
 
     private suspend fun getAgeRestriction(id: Int): Int {
-        val data = App.moviesApi.getReleaseDates(id, API_KEY).results
+        val data = App.moviesApi.getReleaseDates(id).results
         data.forEach {
             if (it.iso == "RU") {
                 val ageRestr = it.release_dates[0].certification
@@ -69,7 +80,7 @@ class RetrofitMoviesDataSource : MoviesDataSource {
 
     private suspend fun getGenres(ids: List<Int>): List<GenreDto> {
         if (genresBaseList == null) {
-            genresBaseList = App.moviesApi.getGenresList(API_KEY).genres
+            genresBaseList = App.moviesApi.getGenresList().genres
         }
         return genresBaseList!!.filter { ids.contains(it.id) }
     }

@@ -1,9 +1,12 @@
 package com.ulyanaab.mtshomework
 
 import android.app.Application
+import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.ulyanaab.mtshomework.model.dataSource.remote.retrofit.MoviesApi
+import com.ulyanaab.mtshomework.utilities.API_KEY
 import com.ulyanaab.mtshomework.utilities.BASE_URL
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,11 +26,26 @@ class App : Application() {
     }
 
     private fun initRetrofit() {
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val logginInterceptor = HttpLoggingInterceptor()
+        logginInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val keyInterceptor = Interceptor { chain ->
+            val newUrl = chain.request().url
+                .newBuilder()
+                .addQueryParameter("api_key", API_KEY)
+                .build()
+
+            val newRequest = chain.request()
+                .newBuilder()
+                .url(newUrl)
+                .build()
+
+            chain.proceed(newRequest)
+        }
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+            .addInterceptor(keyInterceptor)
+            .addInterceptor(logginInterceptor)
             .build()
 
         retrofitClient = Retrofit.Builder()

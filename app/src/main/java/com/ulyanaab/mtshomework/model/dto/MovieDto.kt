@@ -16,5 +16,7 @@ data class MovieDto(
     val imageUrl: String,
     val backgroundPosterUrl: String="",
     @field:TypeConverters(TypeConverter::class)
-    val genres: List<GenreDto> = listOf()
+    val genres: List<GenreDto> = listOf(),
+    val id: Int = 0,
+    val date: String = ""
 ) : Serializable

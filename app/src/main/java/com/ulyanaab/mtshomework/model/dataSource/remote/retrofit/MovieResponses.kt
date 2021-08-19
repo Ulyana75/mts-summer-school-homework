@@ -1,6 +1,7 @@
 package com.ulyanaab.mtshomework.model.dataSource.remote.retrofit
 
 import com.google.gson.annotations.SerializedName
+import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 
 data class RetrofitResponse(
@@ -49,4 +50,10 @@ data class ReleaseDateObj(
 
 data class GenresResponse(
     val genres: List<GenreDto>
+)
+
+
+data class ActorsResponse(
+    @SerializedName("cast")
+    val cast: List<ActorDto>
 )
