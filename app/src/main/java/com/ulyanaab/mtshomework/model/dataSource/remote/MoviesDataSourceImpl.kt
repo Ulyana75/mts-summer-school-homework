@@ -64,6 +64,10 @@ class MoviesDataSourceImpl : MoviesDataSource {
         ),
     )
 
+    override fun getNextPartMovies(): List<MovieDto> {
+        return listOf()
+    }
+
     override fun getPopularGenres(): List<GenreDto> {
         return listOf(
             GenreDto("боевики"), GenreDto("драмы"),

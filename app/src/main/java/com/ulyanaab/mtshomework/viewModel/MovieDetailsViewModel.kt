@@ -22,7 +22,7 @@ class MovieDetailsViewModel : ViewModel() {
     fun getActors(id: Int) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             _actorsLiveData.postValue(
-                dataSource.getActors(id).subList(0, 5)
+                dataSource.getActors(id)
             )
         }
     }

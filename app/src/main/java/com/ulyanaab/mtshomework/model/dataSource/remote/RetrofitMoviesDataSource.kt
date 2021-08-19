@@ -5,22 +5,27 @@ import com.ulyanaab.mtshomework.model.dataSource.remote.retrofit.MovieResponse
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
-import com.ulyanaab.mtshomework.utilities.API_KEY
 import com.ulyanaab.mtshomework.utilities.BASE_FOR_IMAGES
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import java.util.*
 import kotlin.math.roundToInt
 
 class RetrofitMoviesDataSource : MoviesDataSource {
 
     private var genresBaseList: List<GenreDto>? = null
 
+    private var currentRequestedPage = 1
+
 
     override fun getMovies(): List<MovieDto> = runBlocking {
-        val moviesResponse = App.moviesApi.getMovies( 2021).results // TODO current year
+        val year = Calendar.getInstance().get(Calendar.YEAR) - 1
+        val moviesResponse = App.moviesApi.getMovies( year, currentRequestedPage).results
         return@runBlocking convertToMoviesDto(moviesResponse)
+    }
+
+    override fun getNextPartMovies(): List<MovieDto> {
+        currentRequestedPage += 1
+        return getMovies()
     }
 
     override fun getPopularGenres(): List<GenreDto> {
@@ -40,7 +45,7 @@ class RetrofitMoviesDataSource : MoviesDataSource {
     }
 
     private suspend fun convertToMoviesDto(list: List<MovieResponse>): List<MovieDto> {
-        val res = mutableListOf<MovieDto>()
+        val res = mutableListOf<Deferred<MovieDto>>()
         list.forEach {
             res.add(
                 CoroutineScope(Dispatchers.IO).async {
@@ -55,10 +60,10 @@ class RetrofitMoviesDataSource : MoviesDataSource {
                         it.id,
                         it.release_date
                     )
-                }.await()
+                }
             )
         }
-        return res
+        return res.map { it.await() }
     }
 
     private fun getRating(rating: Float): Int {

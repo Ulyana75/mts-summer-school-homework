@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ulyanaab.mtshomework.R
@@ -33,7 +36,10 @@ class MainFragment : Fragment() {
     private lateinit var recyclerViewGenres: RecyclerView
     private lateinit var recyclerViewMovies: RecyclerView
     private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesLayoutManager: GridLayoutManager
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+    private var lastPosition = 0
 
 
     override fun onCreateView(
@@ -52,6 +58,8 @@ class MainFragment : Fragment() {
         super.onResume()
         requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
         requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
+
+        recyclerViewMovies.scrollToPosition(lastPosition)
     }
 
     private fun initViews() {
@@ -81,23 +89,33 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerViews() {
-        recyclerViewGenres = requireView().findViewById(R.id.recycler_view_genre)
-        val adapter = GenreAdapter(listOf(), this::adapterGenreListener)
-        recyclerViewGenres.adapter = adapter
+        initGenresRecyclerView()
+        initMoviesRecyclerView()
+    }
 
-        viewModel.genresLiveData.observe(this, {
-            adapter.setData(it)
-            adapter.notifyDataSetChanged()
-        })
-
-
+    private fun initMoviesRecyclerView() {
         recyclerViewMovies = requireView().findViewById(R.id.recycler_view_movies)
         moviesAdapter = MoviesAdapter(
             listOf(),
             this@MainFragment::adapterMovieListener,
             calculateImageSizeInPX(requireContext())
         )
+        moviesLayoutManager = GridLayoutManager(requireContext(), 2)
+
         recyclerViewMovies.adapter = moviesAdapter
+        recyclerViewMovies.layoutManager = moviesLayoutManager
+
+        recyclerViewMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                lastPosition = moviesLayoutManager.findFirstVisibleItemPosition()
+                if (dy > 0 && moviesLayoutManager.findFirstVisibleItemPosition() >= moviesAdapter.itemCount - 5) {
+                    viewModel.getNextPartMovies()
+                }
+            }
+
+        })
 
         viewModel.moviesLiveData.observe(this, {
             val diffResult =
@@ -105,6 +123,17 @@ class MainFragment : Fragment() {
             moviesAdapter.setData(it)
 
             diffResult.dispatchUpdatesTo(moviesAdapter)
+        })
+    }
+
+    private fun initGenresRecyclerView() {
+        recyclerViewGenres = requireView().findViewById(R.id.recycler_view_genre)
+        val adapter = GenreAdapter(listOf(), this::adapterGenreListener)
+        recyclerViewGenres.adapter = adapter
+
+        viewModel.genresLiveData.observe(this, {
+            adapter.setData(it)
+            adapter.notifyDataSetChanged()
         })
     }
 
