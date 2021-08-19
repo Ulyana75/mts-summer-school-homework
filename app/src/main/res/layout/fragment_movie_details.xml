@@ -162,6 +162,15 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_actor"/>
 
+            <ProgressBar
+                android:id="@id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/recycler_view_actors"
+                app:layout_constraintStart_toStartOf="@id/recycler_view_actors"
+                app:layout_constraintEnd_toEndOf="@id/recycler_view_actors"
+                android:visibility="gone"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

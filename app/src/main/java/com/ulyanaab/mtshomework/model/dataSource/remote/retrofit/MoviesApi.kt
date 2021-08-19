@@ -8,7 +8,6 @@ interface MoviesApi {
 
     @GET("discover/movie?language=ru&sort_by=popularity.desc")
     suspend fun getMovies(
-        @Query("primary_release_date.gte") sinceYear: Int,
         @Query("page") page: Int
     ): RetrofitResponse
 

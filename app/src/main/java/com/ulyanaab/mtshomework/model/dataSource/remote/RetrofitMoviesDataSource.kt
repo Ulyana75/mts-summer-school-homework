@@ -18,8 +18,7 @@ class RetrofitMoviesDataSource : MoviesDataSource {
 
 
     override fun getMovies(): List<MovieDto> = runBlocking {
-        val year = Calendar.getInstance().get(Calendar.YEAR) - 1
-        val moviesResponse = App.moviesApi.getMovies( year, currentRequestedPage).results
+        val moviesResponse = App.moviesApi.getMovies(currentRequestedPage).results
         return@runBlocking convertToMoviesDto(moviesResponse)
     }
 

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilities.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilities.LoadingStates
 import com.ulyanaab.mtshomework.utilities.loadImageAsync
 import com.ulyanaab.mtshomework.utilities.setRating
 import com.ulyanaab.mtshomework.view.recyclerView.ActorsAdapter
@@ -68,6 +69,13 @@ class MovieDetailsFragment : Fragment() {
         actorViewModel.actorsLiveData.observe(this) {
             adapter.setData(it)
             adapter.notifyDataSetChanged()
+        }
+
+        actorViewModel.statesLiveData.observe(this) {
+            requireView().findViewById<View>(R.id.progress_bar).visibility = when (it) {
+                LoadingStates.LOADING -> View.VISIBLE
+                else -> View.GONE
+            }
         }
     }
 
