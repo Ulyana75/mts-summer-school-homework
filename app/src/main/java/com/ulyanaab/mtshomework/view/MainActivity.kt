@@ -3,7 +3,6 @@ package com.ulyanaab.mtshomework.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ulyanaab.mtshomework.R

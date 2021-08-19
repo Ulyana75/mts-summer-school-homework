@@ -5,9 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ulyanaab.mtshomework.model.dataSource.local.LocalMovieDataSource
-import com.ulyanaab.mtshomework.model.dataSource.remote.MoviesDataSource
-import com.ulyanaab.mtshomework.model.dataSource.remote.MoviesDataSourceWithDelay
 import com.ulyanaab.mtshomework.model.dataSource.local.RoomLocalMovieDataSource
+import com.ulyanaab.mtshomework.model.dataSource.remote.MoviesDataSource
 import com.ulyanaab.mtshomework.model.dataSource.remote.RetrofitMoviesDataSource
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
