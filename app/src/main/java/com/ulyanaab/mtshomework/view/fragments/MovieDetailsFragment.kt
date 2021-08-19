@@ -43,7 +43,7 @@ class MovieDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initViews() {
         with(requireView()) {
-            findViewById<ImageView>(R.id.movie_image).loadImageAsync(movieObj!!.imageUrl)
+            findViewById<ImageView>(R.id.movie_image).loadImageAsync(movieObj!!.backgroundPosterUrl)
             findViewById<TextView>(R.id.movie_title).text = movieObj!!.title
             findViewById<TextView>(R.id.age_restriction).text = "${movieObj!!.ageRestriction}+"
             setRating(movieObj!!.rateScore, this)
@@ -56,6 +56,7 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun getActors(): MutableList<ActorDto> {
+        //TODO
         return mutableListOf(
             ActorDto("Джейсон Стэйтем", R.drawable.img_actor_stethem),
             ActorDto("Холт Маккэллани", R.drawable.img_actor_mackellany),

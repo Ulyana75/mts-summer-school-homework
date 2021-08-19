@@ -17,6 +17,7 @@ import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 import com.ulyanaab.mtshomework.utilities.DISTANCE_FOR_SWIPE_REFRESH
 import com.ulyanaab.mtshomework.utilities.KEY_TO_SEND_MOVIEDTO
+import com.ulyanaab.mtshomework.utilities.LoadingStates
 import com.ulyanaab.mtshomework.utilities.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
@@ -56,6 +57,13 @@ class MainFragment : Fragment() {
     private fun initViews() {
         initRecyclerViews()
         initSwipeRefresh()
+
+        viewModel.statesLiveData.observe(this) {
+            requireView().findViewById<View>(R.id.progress_bar).visibility = when (it) {
+                LoadingStates.LOADING -> View.VISIBLE
+                else -> View.GONE
+            }
+        }
     }
 
     private fun initSwipeRefresh() {
@@ -109,7 +117,7 @@ class MainFragment : Fragment() {
     }
 
     private fun adapterGenreListener(item: GenreDto) {
-        showToast(item.genre)
+        showToast(item.name)
     }
 
     private fun showToast(message: String?) {

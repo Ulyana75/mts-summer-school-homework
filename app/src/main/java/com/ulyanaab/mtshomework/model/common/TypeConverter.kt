@@ -7,7 +7,7 @@ class TypeConverter {
 
     @TypeConverter
     fun fromGenres(list: List<GenreDto>): String {
-        return list.joinToString(separator = ",") { it.genre }
+        return list.joinToString(separator = ",") { it.name }
     }
 
     @TypeConverter
