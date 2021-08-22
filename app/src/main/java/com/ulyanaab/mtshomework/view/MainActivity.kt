@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.work.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ulyanaab.mtshomework.R
+import com.ulyanaab.mtshomework.utilities.MyWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +20,26 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         initViews()
+        createWorker()
+    }
+
+    private fun createWorker() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresStorageNotLow(true)
+            .build()
+
+        val workRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<MyWorker>(
+            24, TimeUnit.HOURS
+        )
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "PeriodicMyWorker",
+            ExistingPeriodicWorkPolicy.KEEP,
+            workRequest
+        )
     }
 
     private fun initViews() {
