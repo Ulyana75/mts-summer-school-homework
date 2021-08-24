@@ -10,7 +10,7 @@ import com.ulyanaab.mtshomework.R
 import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.utilities.loadImageAsync
 
-class ActorsAdapter(private val dataList: MutableList<ActorDto>) :
+class ActorsAdapter(private var dataList: List<ActorDto>) :
     RecyclerView.Adapter<ActorsAdapter.ActorsHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorsHolder {
@@ -19,11 +19,16 @@ class ActorsAdapter(private val dataList: MutableList<ActorDto>) :
     }
 
     override fun onBindViewHolder(holder: ActorsHolder, position: Int) {
-        holder.photo.loadImageAsync(dataList[position].drawable)
+        holder.photo.loadImageAsync(dataList[position].imageUrl)
+        holder.photo.clipToOutline = true
         holder.name.text = dataList[position].name
     }
 
     override fun getItemCount(): Int = dataList.size
+
+    fun setData(data: List<ActorDto>) {
+        dataList = data
+    }
 
 
     class ActorsHolder(view: View) : RecyclerView.ViewHolder(view) {

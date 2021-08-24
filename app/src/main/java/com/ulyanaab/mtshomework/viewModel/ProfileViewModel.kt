@@ -5,11 +5,9 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ulyanaab.mtshomework.model.daos.UserDao
-import com.ulyanaab.mtshomework.model.dto.UserDto
-import com.ulyanaab.mtshomework.model.common.AppDatabase
 import com.ulyanaab.mtshomework.model.dataSource.local.LocalUserDataSource
 import com.ulyanaab.mtshomework.model.dataSource.local.RoomLocalUserDataSource
+import com.ulyanaab.mtshomework.model.dto.UserDto
 import com.ulyanaab.mtshomework.utilities.KEY_CURRENT_USER
 import com.ulyanaab.mtshomework.utilities.KEY_USER_ID
 import com.ulyanaab.mtshomework.utilities.exceptionHandler

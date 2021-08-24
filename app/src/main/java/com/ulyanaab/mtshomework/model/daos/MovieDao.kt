@@ -1,9 +1,11 @@
 package com.ulyanaab.mtshomework.model.daos
 
 import androidx.room.*
+import com.ulyanaab.mtshomework.model.common.TypeConverter
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 
 @Dao
+@TypeConverters(TypeConverter::class)
 interface MovieDao {
 
     @Query("SELECT * FROM Movie")

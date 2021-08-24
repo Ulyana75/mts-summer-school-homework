@@ -1,5 +1,6 @@
 package com.ulyanaab.mtshomework.model.dataSource.remote
 
+import com.ulyanaab.mtshomework.model.dto.ActorDto
 import com.ulyanaab.mtshomework.model.dto.GenreDto
 import com.ulyanaab.mtshomework.model.dto.MovieDto
 
@@ -84,11 +85,19 @@ class MoviesDataSourceWithDelay : MoviesDataSource {
         return tempList
     }
 
+    override fun getNextPartMovies(): List<MovieDto> {
+        return listOf()
+    }
+
     override fun getPopularGenres(): List<GenreDto> {
         return listOf(
             GenreDto("боевики"), GenreDto("драмы"),
             GenreDto("комедии"), GenreDto("артхаус"),
             GenreDto("мелодрамы"), GenreDto("детективы")
         )
+    }
+
+    override fun getActors(movieId: Int): List<ActorDto> {
+        return listOf()
     }
 }

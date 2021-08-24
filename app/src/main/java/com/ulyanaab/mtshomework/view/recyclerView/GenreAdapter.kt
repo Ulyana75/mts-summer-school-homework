@@ -19,7 +19,7 @@ class GenreAdapter(
     }
 
     override fun onBindViewHolder(holder: GenreHolder, position: Int) {
-        holder.textField.text = dataList[position].genre
+        holder.textField.text = dataList[position].name
         holder.itemView.setOnClickListener {
             listener(dataList[position])
         }
