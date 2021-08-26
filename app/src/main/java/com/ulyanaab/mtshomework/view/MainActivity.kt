@@ -48,14 +48,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment)
-                    true
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_profileFragment_to_mainFragment)
+                    false
                 }
                 R.id.profile -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
-                    true
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_mainFragment_to_profileFragment)
+                    false
                 }
-                else -> false
+                else -> true
             }
         }
     }
