@@ -38,6 +38,7 @@ class MainFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private var lastPosition = 0
+    private var updateWasRequested = false
 
 
     override fun onCreateView(
@@ -108,8 +109,13 @@ class MainFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 lastPosition = moviesLayoutManager.findFirstVisibleItemPosition()
-                if (dy > 0 && moviesLayoutManager.findFirstVisibleItemPosition() >= moviesAdapter.itemCount - 8) {
-                    viewModel.getNextPartMovies()
+                if (!updateWasRequested && dy > 0 &&
+                    moviesLayoutManager.findFirstVisibleItemPosition() >= moviesAdapter.itemCount - 8
+                ) {
+                    updateWasRequested = true
+                    viewModel.getNextPartMovies {
+                        updateWasRequested = false
+                    }
                 }
             }
 

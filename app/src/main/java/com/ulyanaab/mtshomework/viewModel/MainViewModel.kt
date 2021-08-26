@@ -80,7 +80,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getNextPartMovies() {
+    fun getNextPartMovies(callback: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             _statesLiveData.postValue(LoadingStates.LOADING)
 
@@ -90,6 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             localModel.addAll(movies)
 
             _statesLiveData.postValue(LoadingStates.DONE)
+            callback()
         }
     }
 
