@@ -1,14 +1,17 @@
 package com.ulyanaab.mtshomework.view.fragments
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.transition.Transition
 import android.transition.TransitionInflater
+import android.transition.TransitionSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.transition.addListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -39,8 +42,49 @@ class MovieDetailsFragment : Fragment() {
     ): View? {
         postponeEnterTransition()
         movieObj = arguments?.getSerializable(KEY_TO_SEND_MOVIEDTO) as MovieDto?
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(R.transition.change_bounds)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(R.transition.change_bounds)
+        addAnimation()
         return inflater.inflate(R.layout.fragment_movie_details, container, false)
+    }
+
+    @SuppressLint("CutPasteId")
+    private fun addAnimation() {
+        (sharedElementEnterTransition as TransitionSet).addListener(
+            onEnd = {
+                with(requireView()) {
+                    findViewById<View>(R.id.card_background).visibility = View.VISIBLE
+                    findViewById<View>(R.id.constraint_on_card).visibility = View.VISIBLE
+
+                    val firstAnim = ObjectAnimator.ofFloat(
+                        findViewById(R.id.card_background),
+                        View.TRANSLATION_Y,
+                        1000f,
+                        0f
+                    )
+                        .setDuration(500)
+
+                    val secondAnim = ObjectAnimator.ofFloat(
+                        findViewById(R.id.constraint_on_card),
+                        View.TRANSLATION_Y,
+                        1000f,
+                        0f
+                    )
+                        .setDuration(500)
+
+                    AnimatorSet().apply {
+                        playTogether(firstAnim, secondAnim)
+                    }
+                        .start()
+                }
+            },
+
+            onStart = {
+                requireView().findViewById<View>(R.id.card_background).visibility = View.INVISIBLE
+                requireView().findViewById<View>(R.id.constraint_on_card).visibility =
+                    View.INVISIBLE
+            }
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

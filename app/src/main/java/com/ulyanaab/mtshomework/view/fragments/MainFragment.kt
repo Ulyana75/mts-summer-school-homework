@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
@@ -127,8 +125,8 @@ class MainFragment : Fragment() {
         })
 
         recyclerViewMovies.apply {
-            postponeEnterTransition()
             recyclerViewMovies.scrollToPosition(lastPosition)
+
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
                 true
@@ -160,18 +158,11 @@ class MainFragment : Fragment() {
             view.findViewById<ImageView>(R.id.film_poster) to "poster_${item.title}",
         )
 
-        val navOptions = NavOptions.Builder()
-            .setEnterAnim(R.anim.fade_in)
-            .setExitAnim(R.anim.fade_out)
-            .setPopEnterAnim(R.anim.fade_in)
-            .setPopExitAnim(R.anim.fade_out)
-            .build()
-
         requireView().findNavController().navigate(
             R.id.action_mainFragment_to_movieDetailsFragment, bundleOf(
                 KEY_TO_SEND_MOVIEDTO to item
             ),
-            navOptions,
+            null,
             extras
         )
     }
