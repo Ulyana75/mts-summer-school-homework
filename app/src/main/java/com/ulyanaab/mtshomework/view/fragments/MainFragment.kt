@@ -26,6 +26,7 @@ import com.ulyanaab.mtshomework.utilities.LoadingStates
 import com.ulyanaab.mtshomework.utilities.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.MyItemAnimator
 import com.ulyanaab.mtshomework.view.recyclerView.diffUtil.MoviesDiffUtilCallback
 import com.ulyanaab.mtshomework.viewModel.MainViewModel
 import kotlinx.coroutines.*
@@ -105,6 +106,7 @@ class MainFragment : Fragment() {
 
         recyclerViewMovies.adapter = moviesAdapter
         recyclerViewMovies.layoutManager = moviesLayoutManager
+        recyclerViewMovies.itemAnimator = MyItemAnimator()
 
         recyclerViewMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
