@@ -64,7 +64,7 @@ fun setRating(rating: Int, view: View) {
     }
 }
 
-fun ImageView.loadImageAsync(uri: String) {
+fun ImageView.loadImageAsync(uri: String, callback:  () -> Unit = {}) {
     val job = CoroutineScope(Dispatchers.IO)
 
     val listener = object : View.OnAttachStateChangeListener {
@@ -80,26 +80,12 @@ fun ImageView.loadImageAsync(uri: String) {
     job.launch(exceptionHandler) {
         this@loadImageAsync.load(uri) {
             placeholder(R.drawable.placeholder)
+            listener(
+                onSuccess = { _, _ ->
+                    callback()
+                }
+            )
         }
-        this@loadImageAsync.removeOnAttachStateChangeListener(listener)
-    }
-}
-
-fun ImageView.loadImageAsync(drawable: Int) {
-    val job = CoroutineScope(Dispatchers.IO)
-
-    val listener = object : View.OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {}
-
-        override fun onViewDetachedFromWindow(v: View?) {
-            job.cancel()
-            removeOnAttachStateChangeListener(this)
-        }
-    }
-    this.addOnAttachStateChangeListener(listener)
-
-    job.launch(exceptionHandler) {
-        this@loadImageAsync.load(drawable)
         this@loadImageAsync.removeOnAttachStateChangeListener(listener)
     }
 }

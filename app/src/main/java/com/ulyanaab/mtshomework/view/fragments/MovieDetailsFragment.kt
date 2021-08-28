@@ -2,6 +2,7 @@ package com.ulyanaab.mtshomework.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.transition.Transition
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,7 @@ class MovieDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
         movieObj = arguments?.getSerializable(KEY_TO_SEND_MOVIEDTO) as MovieDto?
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(R.transition.change_bounds)
         return inflater.inflate(R.layout.fragment_movie_details, container, false)
@@ -57,7 +59,9 @@ class MovieDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun initViews() {
         with(requireView()) {
-            findViewById<ImageView>(R.id.movie_image).loadImageAsync(movieObj!!.imageUrl)
+            findViewById<ImageView>(R.id.movie_image).loadImageAsync(movieObj!!.imageUrl) {
+                startPostponedEnterTransition()
+            }
             findViewById<TextView>(R.id.movie_title).text = movieObj!!.title
             findViewById<TextView>(R.id.age_restriction).text = "${movieObj!!.ageRestriction}+"
             setRating(movieObj!!.rateScore, this)

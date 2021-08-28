@@ -50,6 +50,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -170,7 +171,7 @@ class MainFragment : Fragment() {
             R.id.action_mainFragment_to_movieDetailsFragment, bundleOf(
                 KEY_TO_SEND_MOVIEDTO to item
             ),
-            null,
+            navOptions,
             extras
         )
     }
