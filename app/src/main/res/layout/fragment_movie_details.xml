@@ -9,7 +9,7 @@
         android:id="@+id/movie_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_human_anger"
+        tools:src="@drawable/img_human_anger"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent"/>

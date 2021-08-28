@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -57,8 +61,6 @@ class MainFragment : Fragment() {
         super.onResume()
         requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
         requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
-
-        recyclerViewMovies.scrollToPosition(lastPosition)
     }
 
     private fun initViews() {
@@ -121,6 +123,15 @@ class MainFragment : Fragment() {
 
         })
 
+        recyclerViewMovies.apply {
+            postponeEnterTransition()
+            recyclerViewMovies.scrollToPosition(lastPosition)
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }
+
         viewModel.moviesLiveData.observe(this, {
             val diffResult =
                 DiffUtil.calculateDiff(MoviesDiffUtilCallback(moviesAdapter.getData(), it))
@@ -141,11 +152,24 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun adapterMovieListener(item: MovieDto) {
+    private fun adapterMovieListener(item: MovieDto, view: View) {
+        val extras = FragmentNavigatorExtras(
+            view.findViewById<ImageView>(R.id.film_poster) to "poster_${item.title}",
+        )
+
+        val navOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.fade_in)
+            .setExitAnim(R.anim.fade_out)
+            .setPopEnterAnim(R.anim.fade_in)
+            .setPopExitAnim(R.anim.fade_out)
+            .build()
+
         requireView().findNavController().navigate(
-            R.id.movieDetailsFragment, bundleOf(
+            R.id.action_mainFragment_to_movieDetailsFragment, bundleOf(
                 KEY_TO_SEND_MOVIEDTO to item
-            )
+            ),
+            null,
+            extras
         )
     }
 

@@ -3,6 +3,7 @@ package com.ulyanaab.mtshomework.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.work.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -48,11 +49,27 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_profileFragment_to_mainFragment)
+                    val navOptions = NavOptions.Builder()
+                        .setEnterAnim(R.anim.from_left)
+                        .setExitAnim(R.anim.to_right)
+                        .setPopEnterAnim(R.anim.from_right)
+                        .setPopExitAnim(R.anim.to_left)
+                        .build()
+
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.mainFragment, null, navOptions)
+
                     false
                 }
                 R.id.profile -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_mainFragment_to_profileFragment)
+                    val navOptions = NavOptions.Builder()
+                        .setEnterAnim(R.anim.from_right)
+                        .setExitAnim(R.anim.to_left)
+                        .setPopEnterAnim(R.anim.from_left)
+                        .setPopExitAnim(R.anim.to_right)
+                        .build()
+
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment, null, navOptions)
+
                     false
                 }
                 else -> true
