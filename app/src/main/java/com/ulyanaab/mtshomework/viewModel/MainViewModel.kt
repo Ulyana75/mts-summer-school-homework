@@ -65,7 +65,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updateMovies(callback: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val movies = remoteModel.getMovies()
+                val movies = remoteModel.updateMovies()
                 _moviesLiveData.postValue(movies)
 
                 localModel.clear()
