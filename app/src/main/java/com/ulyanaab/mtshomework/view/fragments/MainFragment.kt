@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +24,7 @@ import com.ulyanaab.mtshomework.utilities.LoadingStates
 import com.ulyanaab.mtshomework.utilities.calculateImageSizeInPX
 import com.ulyanaab.mtshomework.view.recyclerView.GenreAdapter
 import com.ulyanaab.mtshomework.view.recyclerView.MoviesAdapter
+import com.ulyanaab.mtshomework.view.recyclerView.MyItemAnimator
 import com.ulyanaab.mtshomework.view.recyclerView.diffUtil.MoviesDiffUtilCallback
 import com.ulyanaab.mtshomework.viewModel.MainViewModel
 import kotlinx.coroutines.*
@@ -38,12 +41,14 @@ class MainFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private var lastPosition = 0
+    private var updateWasRequested = false
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -56,8 +61,6 @@ class MainFragment : Fragment() {
         super.onResume()
         requireActivity().findViewById<View>(R.id.active_home).visibility = View.VISIBLE
         requireActivity().findViewById<View>(R.id.active_profile).visibility = View.INVISIBLE
-
-        recyclerViewMovies.scrollToPosition(lastPosition)
     }
 
     private fun initViews() {
@@ -102,18 +105,33 @@ class MainFragment : Fragment() {
 
         recyclerViewMovies.adapter = moviesAdapter
         recyclerViewMovies.layoutManager = moviesLayoutManager
+        recyclerViewMovies.itemAnimator = MyItemAnimator()
 
         recyclerViewMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 lastPosition = moviesLayoutManager.findFirstVisibleItemPosition()
-                if (dy > 0 && moviesLayoutManager.findFirstVisibleItemPosition() >= moviesAdapter.itemCount - 8) {
-                    viewModel.getNextPartMovies()
+                if (!updateWasRequested && dy > 0 &&
+                    moviesLayoutManager.findFirstVisibleItemPosition() >= moviesAdapter.itemCount - 8
+                ) {
+                    updateWasRequested = true
+                    viewModel.getNextPartMovies {
+                        updateWasRequested = false
+                    }
                 }
             }
 
         })
+
+        recyclerViewMovies.apply {
+            recyclerViewMovies.scrollToPosition(lastPosition)
+
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+        }
 
         viewModel.moviesLiveData.observe(this, {
             val diffResult =
@@ -135,11 +153,17 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun adapterMovieListener(item: MovieDto) {
+    private fun adapterMovieListener(item: MovieDto, view: View) {
+        val extras = FragmentNavigatorExtras(
+            view.findViewById<ImageView>(R.id.film_poster) to "poster_${item.title}",
+        )
+
         requireView().findNavController().navigate(
-            R.id.movieDetailsFragment, bundleOf(
+            R.id.action_mainFragment_to_movieDetailsFragment, bundleOf(
                 KEY_TO_SEND_MOVIEDTO to item
-            )
+            ),
+            null,
+            extras
         )
     }
 

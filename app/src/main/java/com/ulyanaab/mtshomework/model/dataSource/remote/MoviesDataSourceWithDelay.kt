@@ -85,6 +85,10 @@ class MoviesDataSourceWithDelay : MoviesDataSource {
         return tempList
     }
 
+    override fun updateMovies(): List<MovieDto> {
+        return getMovies()
+    }
+
     override fun getNextPartMovies(): List<MovieDto> {
         return listOf()
     }

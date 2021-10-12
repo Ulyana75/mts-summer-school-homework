@@ -65,7 +65,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updateMovies(callback: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val movies = remoteModel.getMovies()
+                val movies = remoteModel.updateMovies()
                 _moviesLiveData.postValue(movies)
 
                 localModel.clear()
@@ -80,7 +80,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun getNextPartMovies() {
+    fun getNextPartMovies(callback: () -> Unit) {
         CoroutineScope(Dispatchers.IO).launch(exceptionHandler) {
             _statesLiveData.postValue(LoadingStates.LOADING)
 
@@ -90,6 +90,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             localModel.addAll(movies)
 
             _statesLiveData.postValue(LoadingStates.DONE)
+            callback()
         }
     }
 

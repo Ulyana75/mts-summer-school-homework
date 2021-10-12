@@ -14,7 +14,7 @@ import com.ulyanaab.mtshomework.utilities.setRating
 
 class MoviesAdapter(
     private var dataList: List<MovieDto>,
-    private val listener: (item: MovieDto) -> Unit,
+    private val listener: (item: MovieDto, view: View) -> Unit,
     private val imgMetrics: Pair<Int, Int>?
 ) : RecyclerView.Adapter<MoviesAdapter.MoviesHolder>() {
 
@@ -44,10 +44,12 @@ class MoviesAdapter(
         holder.description.text = item.description
         holder.ageRestriction.text = "${item.ageRestriction}+"
 
+        holder.poster.transitionName = "poster_${item.title}"
+
         setRating(item.rateScore, holder.itemView)
 
         holder.itemView.setOnClickListener {
-            listener(dataList[position])
+            listener(dataList[position], holder.itemView)
         }
     }
 

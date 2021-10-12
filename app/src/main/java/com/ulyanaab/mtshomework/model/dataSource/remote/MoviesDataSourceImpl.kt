@@ -64,6 +64,10 @@ class MoviesDataSourceImpl : MoviesDataSource {
         ),
     )
 
+    override fun updateMovies(): List<MovieDto> {
+        return getMovies()
+    }
+
     override fun getNextPartMovies(): List<MovieDto> {
         return listOf()
     }

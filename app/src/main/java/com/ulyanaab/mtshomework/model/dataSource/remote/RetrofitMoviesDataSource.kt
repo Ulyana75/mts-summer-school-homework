@@ -22,6 +22,11 @@ class RetrofitMoviesDataSource : MoviesDataSource {
         return@runBlocking convertToMoviesDto(moviesResponse)
     }
 
+    override fun updateMovies(): List<MovieDto> {
+        currentRequestedPage = 1
+        return getMovies()
+    }
+
     override fun getNextPartMovies(): List<MovieDto> {
         currentRequestedPage += 1
         return getMovies()

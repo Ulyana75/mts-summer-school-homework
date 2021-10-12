@@ -26,8 +26,6 @@ class App : Application() {
     }
 
     private fun initRetrofit() {
-        val logginInterceptor = HttpLoggingInterceptor()
-        logginInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val keyInterceptor = Interceptor { chain ->
             val newUrl = chain.request().url
@@ -45,7 +43,6 @@ class App : Application() {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(keyInterceptor)
-            .addInterceptor(logginInterceptor)
             .build()
 
         retrofitClient = Retrofit.Builder()
